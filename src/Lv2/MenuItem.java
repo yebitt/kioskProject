@@ -11,7 +11,7 @@ public class MenuItem {
         this.explain = explain;
     }
 
-    // getter, setter
+    // getter
     public String getName(){
         return name;
     }
