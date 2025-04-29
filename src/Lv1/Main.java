@@ -41,10 +41,10 @@ public class Main {
             } else if(menuInput == 0){
                 System.out.println("프로그램을 종료합니다.");
             } else {
-                throw new IllegalArgumentException("잘못된 입력");
+                System.out.println("잘못된 입력입니다. 다시 입력하세요.");
+                continue;
             }
         }
-
 
     }
 }
