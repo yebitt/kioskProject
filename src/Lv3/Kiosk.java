@@ -3,7 +3,6 @@ package Lv3;
 import Lv2.MenuItem;
 import Lv4.Menu;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -30,30 +29,29 @@ public class Kiosk {
             System.out.print("> ");
             menuInput1 = scanner.nextInt();
 
-            // 메뉴판 출력 // for문으로 바꿔보기
+            // Kiosk클래스 - if문 일반화 시키기
             Menu menu;
-            if(menuInput1 == 1){
-                menu = menus.get(0);
-            } else if(menuInput1 == 2){
-                menu = menus.get(1);
-            } else if(menuInput1 == 3){
-                menu = menus.get(2);
-            } else if(menuInput1 == 0){
+            if(menuInput1 == 0){
                 System.out.println("시스템을 종료합니다.");
                 break;
+            } else if(0 < menuInput1 && menuInput1 <= menus.size()){
+                menu = menus.get(menuInput1-1);
             } else {
                 System.out.println("잘못된 입력입니다. 다시 입력하세요.");
                 continue;
             }
+
+            // 메뉴판 출력
             menu.printMenuItem();
             menuInput2 = scanner.nextInt();
 
+            List<MenuItem> menuItem = menu.getMenuItems();
             if(menuInput2 == 0){
                 continue;
-            } else if(0 < menuInput2 && menuInput2 <= menu.getMenuItems().size()){
-                MenuItem item = menu.getMenuItems().get(menuInput2-1);
+            } else if(0 < menuInput2 && menuInput2 <= menuItem.size()){
+                int j = menuInput2-1;
                 System.out.print("선택한 메뉴 : ");
-                System.out.println(menuInput2 + ". " + item.getName()+ "   | W " + item.getPrice() + " | " + item.getExplain());
+                System.out.println(j+1 + ". " + menuItem.get(j).getName() + "   | W " + menuItem.get(j).getPrice() + " | " + menuItem.get(j).getExplain());
             } else {
                 System.out.println("잘못된 입력입니다.");
                 continue;

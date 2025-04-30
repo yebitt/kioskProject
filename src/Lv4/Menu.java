@@ -2,7 +2,6 @@ package Lv4;
 
 import Lv2.MenuItem;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Menu {
