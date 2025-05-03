@@ -3,6 +3,7 @@ package Lv3;
 import Challenge.Lv1.ShoppingBasket;
 import Lv2.MenuItem;
 import Lv4.Menu;
+import Lv5.Discount;
 
 import java.util.List;
 import java.util.Scanner;
@@ -21,6 +22,8 @@ public class Kiosk {
         int menuInput2 = 1;
         int menuInput3 = 1;
         int menuInput4 = 1;
+        int menuInput5 = 1;
+        double total = 0;
 
         while(true) {
             // 카테고리 메뉴 출력
@@ -52,14 +55,33 @@ public class Kiosk {
                 System.out.println("[ Orders ]");
                 shoppingBasket.printOrders();
                 System.out.println("[ Total ]");
-                System.out.println("W " + shoppingBasket.total());
+                System.out.printf("W %.1f\n", shoppingBasket.total());
                 System.out.println();
                 System.out.println("1. 주문      2. 메뉴판");
                 System.out.print("> ");
                 menuInput4 = scanner.nextInt();
 
                 if(menuInput4 == 1){
-                    System.out.println("주문이 완료되었습니다. 금액은 W " + shoppingBasket.total() + " 입니다.");
+                    System.out.println("할인 정보를 입력해 주세요");
+                    int k = 0;
+                    for(Discount dis : Discount.values()){
+                        System.out.println(++k + ". " + dis + " : " + (int)(dis.getRate()*100) + "%");
+                    }
+                    System.out.print("> ");
+                    menuInput5 = scanner.nextInt();
+
+                    if(menuInput5 == 1){
+                        total = shoppingBasket.total() - (shoppingBasket.total() * Discount.SOLDIER.getRate());
+                    } else if(menuInput5 == 2){
+                        total = shoppingBasket.total() - (shoppingBasket.total() * Discount.STUDENT.getRate());
+                    } else if(menuInput5 == 3){
+                        total = shoppingBasket.total() - (shoppingBasket.total() * Discount.ORDINARY_PERSON.getRate());
+                    } else{
+                        System.out.println("잘못된 입력입니다.");
+                        continue;
+                    }
+
+                    System.out.printf("주문이 완료되었습니다. 금액은 W %.1f 입니다.\n", total);
                     // 주문 내역 비우기
                     shoppingBasket.getOrderItems().clear();
                     continue;
